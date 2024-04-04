@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col col-md"></div>
+  <div class="col-10 col-md-8">
+    <h2>Añadir nuevo Usuario</h2>
+    <a class="btn btn-primary float-md-right" routerLink="/user">Regresar al Listado</a>
+    <form [formGroup]="usersForm" (ngSubmit)="onSubmit()" >
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <i class="fa fa-check-circle check"
+           *ngIf="usersForm.controls['nombre'].valid"></i>
+        <i class="fa fa-exclamation-circle uncheck"
+           *ngIf="usersForm.controls['nombre'].invalid && usersForm.controls['nombre'].touched"></i>
+        <input type="text"
+               class="form-control"
+               id="nombre"
+               formControlName="nombre">
+        <p class="alert alert-danger"
+           *ngIf="usersForm.controls['nombre'].invalid && usersForm.controls['nombre'].touched">
+          El campo nombre es obligatorio
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input type="text"
+               class="form-control"
+               id="apellido"
+               formControlName="apellido">
+      </div>
+      <div class="form-group">
+        <label for="edad">Edad</label>
+        <input type="number"
+               class="form-control"
+               id="edad"
+               formControlName="edad">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <i class="fa fa-check-circle check" *ngIf="usersForm.get('email')?.valid"></i>
+        <i class="fa fa-exclamation-circle uncheck" *ngIf="usersForm.get('email')?.invalid && usersForm.get('email')?.touched"></i>
+        <input type="text"
+               class="form-control"
+               id="email"
+               formControlName="email"
+               required
+               email>
+        <p class="alert alert-danger"
+           *ngIf="usersForm.get('email')?.invalid && usersForm.get('email')?.touched">Por favor introduzca una dirección de correo válida
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="provincia">Provincia</label>
+        <select class="form-control"
+                id="provincia"
+                formControlName="provincia">
+          <option value ="">Seleccione la provincia</option>
+          <option *ngFor ="let provincia of provincias" [value]="provincia" >
+            {{ provincia }}
+          </option>
+
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Telefono</label>
+        <input type="text"
+               class="form-control"
+               id="telefono"
+               formControlName="telefono">
+      </div>
+
+      <button type="submit"
+              class="btn btn-success"
+              [disabled]="!usersForm.valid" >
+        Guardar
+      </button>
+      <a class="btn btn-danger" routerLink="/user">Cancelar</a>
+      <p class="alert alert-danger"
+         *ngIf="!usersForm.valid">Por favor complete todos los campos obligatorios
+      </p>
+    </form>
+    <hr>
+    <pre>
+      {{ users | json}}
+    </pre>
+    <h4></h4>
+
+  </div>
+  <div class="col col-md"></div>
+</div>
+

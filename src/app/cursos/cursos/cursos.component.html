@@ -1,0 +1,78 @@
+<div class="flex">
+  <div class="p-4 shadow-2 border-round mr-4">
+    <div class="form-container">
+      <form [formGroup]="FormularioCursos" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Nombre
+          <span style="color: red">*</span></label>
+        <i class="fa fa-exclamation-circle uncheck"
+           *ngIf="FormularioCursos.controls['nombre'].invalid && FormularioCursos.controls['nombre'].touched"></i>
+        <input
+          type="text"
+          id="nombre"
+          formControlName="nombre" pInputText>
+        <p class="alert alert-danger"
+           *ngIf="FormularioCursos.controls['nombre'].invalid && FormularioCursos.controls['nombre'].touched">
+          El campo Nombre es obligatorio
+        </p>
+      </div>
+      <div class="form-group">
+        <label for="descripcion">Descripcion</label>
+        <input type="text" id="descripcion"  formControlName="descripcion" pInputText>
+      </div>
+      <div class="form-group">
+        <label for="duracion">Duracion</label>
+        <input type="number" id="duracion"  formControlName="duracion" pInputNumber>
+      </div>
+      <div class="form-group">
+        <label for="instructor">Instructor</label>
+        <input type="text" id="instructor"  formControlName="instructor" pInputText>
+      </div>
+        <div class="form-group">
+          <label for="nivel">Nivel</label>
+          <select class="form-control"
+                  id="nivel"
+                  formControlName="nivel">
+            <option value ="">Seleccione Nivel</option>
+            <option *ngFor ="let nivel of nivel" [value]="nivel" >
+              {{ nivel}}
+            </option>
+
+          </select>
+        </div>
+      <button class="p-button-secondary" type="submit" [disabled]="FormularioCursos.invalid|| FormularioCursos.pristine" > Guardar</button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div class="card">
+  <p-table [value]="cursos" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Duración</th>
+        <th>Instructor</th>
+        <th>Nivel</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cursos>
+      <tr>
+        <td>{{ cursos.nombre }}</td>
+        <td>{{ cursos.descripcion }}</td>
+        <td>{{ cursos.duracion }}</td>
+        <td>{{ cursos.instructor }}</td>
+        <td>{{ cursos.nivel }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <pre>
+      {{ cursos | json}}
+    </pre>
+</div>
